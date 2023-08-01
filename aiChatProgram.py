@@ -1,9 +1,8 @@
 import openai
 import time
 
-#<3
 # Replace 'YOUR_API_KEY' with your actual OpenAI API key
-openai.api_key = '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'
+# openai.api_key = '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'
 
 
 def get_gpt_answer(prompt):
