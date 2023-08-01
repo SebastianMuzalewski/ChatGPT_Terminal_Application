@@ -12,7 +12,7 @@ def get_gpt_answer(prompt):
         max_tokens=150,  # You can adjust this value based on your needs
         temperature=0.5,  # You can adjust this value to control the creativity of the response
     )
-    time.sleep(2)
+    time.sleep(3)
     return response.choices[0].text.strip()
 
 
