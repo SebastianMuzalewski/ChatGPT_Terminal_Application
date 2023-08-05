@@ -1,32 +1,44 @@
+# Networking Project
 import openai
-import time
 
-# Replace 'YOUR_API_KEY' with your actual OpenAI API key
-# openai.api_key = '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'
+# Set personal API key
+personal_key = ""
+openai.api_key = personal_key
 
 
-def get_gpt_answer(prompt):
-    response = openai.Completion.create(
-        engine="text-davinci-002",  # You can use other engines as well
-        prompt=prompt,
-        max_tokens=150,  # You can adjust this value based on your needs
-        temperature=0.5,  # You can adjust this value to control the creativity of the response
+# Prompt user to ask chat anything. Type exit to end session.
+def user_input():
+    print("ChatGPT: Enter prompt! (Type 'exit' to end the conversation)")
+    v_input = input("You: ")
+    return v_input
+
+
+# Sends user input to the chat api and retrieves a response.
+def chatgpt_execute(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages={
+            "role": "user",
+            "content": prompt
+        },
     )
-    time.sleep(3)
-    return response.choices[0].text.strip()
+    return response['content']
 
 
+# Main block where everything is called.
 def main():
-    while True:
-        user_input = input("You: ")
-        if user_input.lower() in ["exit", "quit", "bye"]:
-            print("Exiting...")
-            break
-        prompt = f"You asked: {user_input}\nChatGPT: "
-        answer = get_gpt_answer(prompt)
-        print("ChatGPT:", answer)
+    # Return user_input into a variable to be used.
+    prompt = user_input()
+    if prompt.lower() == "exit":
+        print("ChatGPT: Thank you for using ChatGPT. Have a great day!")
+        exit()
+
+    # Run the chatgpt_execute to send the user_input as a prompt and create the answer from chat.
+    response = chatgpt_execute(prompt)
+
+    # Print results
+    print("ChatGPT:", response)
 
 
 if __name__ == "__main__":
-    print("ChatGPT is ready to answer your questions! Type 'exit', 'quit', or 'bye' to end the conversation.")
     main()
