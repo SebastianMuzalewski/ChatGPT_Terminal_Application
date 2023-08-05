@@ -1,6 +1,7 @@
 # Networking Project
 import openai
 
+
 # Set personal API key
 personal_key = ""
 openai.api_key = personal_key
