@@ -18,27 +18,29 @@ def user_input():
 def chatgpt_execute(prompt):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages={
+        messages=[{
             "role": "user",
             "content": prompt
-        },
+        }],
     )
-    return response['content']
+    return response['choices'][0]['message']['content']
 
 
 # Main block where everything is called.
 def main():
-    # Return user_input into a variable to be used.
-    prompt = user_input()
-    if prompt.lower() == "exit":
-        print("ChatGPT: Thank you for using ChatGPT. Have a great day!")
-        exit()
+    # Run until user exits
+    while True:
+        # Return user_input into a variable to be used.
+        prompt = user_input()
+        if prompt.lower() == "exit":
+            print("ChatGPT: Thank you for using ChatGPT. Have a great day!")
+            exit()
 
-    # Run the chatgpt_execute to send the user_input as a prompt and create the answer from chat.
-    response = chatgpt_execute(prompt)
+        # Run the chatgpt_execute to send the user_input as a prompt and create the answer from chat.
+        response = chatgpt_execute(prompt)
 
-    # Print results
-    print("ChatGPT:", response)
+        # Print results
+        print("ChatGPT:", response)
 
 
 if __name__ == "__main__":
